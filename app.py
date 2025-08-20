@@ -2,11 +2,20 @@ import streamlit as st
 import PyPDF2
 import re
 
-st.title("📖 Leitor de Provas em PDF (multi-upload)")
+# Imagem do ícone
+st.image("mood.jpeg", width=100)
+
+# Título com fonte Lemon Milk Light
+st.markdown("""
+    <link href="https://fonts.googleapis.com/css2?family=Lemon+Milk:wght@300&display=swap" rel="stylesheet">
+    <h1 style='font-family: "Lemon Milk", sans-serif; font-weight: 300;'>
+        Leitor de provas!
+    </h1>
+""", unsafe_allow_html=True)
 
 # Upload de vários PDFs
 pdf_files = st.file_uploader(
-    "Envie um ou mais arquivos PDF", 
+    "ENVIE UM OU MAIS ARQUIVOS PDF", 
     type=["pdf"], 
     accept_multiple_files=True
 )
@@ -32,7 +41,7 @@ if pdf_files and palavra:
                         r"**\1**", 
                         texto
                     )
-                    resultados.append(f"### Página {i+1}\n\n{texto_destacado[:800]}...\n")
+                    resultados.append(f"### Página {i+1}\n\n{texto_destacado[:1500]}...\n")
 
             if resultados:
                 st.success(f"Encontrado em {len(resultados)} páginas")
