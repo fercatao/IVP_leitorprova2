@@ -45,7 +45,7 @@ if pdf_files and palavra:
                     # (?i) torna a busca insensível a maiúsculas/minúsculas
                     texto_destacado = re.sub(
                         f"(?i)({re.escape(palavra)})", 
-                        r'\033[1;31m', 
+                        r'**\1**', 
                         texto
                     )
                     resultados.append(f"### Página {i+1}\n\n{texto_destacado[:1500]}...\n")
