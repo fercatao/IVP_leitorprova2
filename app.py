@@ -15,7 +15,7 @@ st.markdown("""
 
 # Subtítulo com Lemon Milk
 st.markdown("""
-    <h2 style='font-family: "Lemon Milk", sans-serif; font-weight: 100;'>
+    <h2 style='font-family: "Lemon Milk", sans-serif; font-weight: 50;'>
         Banco de Dados
     </h2>
 """, unsafe_allow_html=True)
@@ -28,7 +28,7 @@ pdf_files = st.file_uploader(
 )
 
 # Palavra-chave
-palavra = st.text_input("Digite a palavra-chave para buscar")
+palavra = st.text_input("DIGITE A PALAVRA-CHAVE PARA BUSCAR")
 
 if pdf_files and palavra:
     for pdf_file in pdf_files:
@@ -45,7 +45,7 @@ if pdf_files and palavra:
                     # (?i) torna a busca insensível a maiúsculas/minúsculas
                     texto_destacado = re.sub(
                         f"(?i)({re.escape(palavra)})", 
-                        r' <span style="color:red">\1</span>', 
+                        r'\033[1;31m', 
                         texto
                     )
                     resultados.append(f"### Página {i+1}\n\n{texto_destacado[:1500]}...\n")
