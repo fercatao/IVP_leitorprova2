@@ -39,16 +39,15 @@ if pdf_files and palavra:
             for i, pagina in enumerate(leitor.pages):
                 texto = pagina.extract_text()
                 if texto and palavra.lower() in texto.lower():
-                    # Substitui quebras de linha para não quebrar Markdown
-                    texto = texto.replace("\n", " ")
-
-                    # Destacar palavra-chave usando Markdown seguro (negrito + emoji)
-                    texto_destacado = re.sub(
-                        f"(?i)({re.escape(palavra)})",
-                        r'**⚡\1⚡**',
-                        texto
-                    )
-                    resultados.append(f"### Página {i+1}\n\n{texto_destacado[:1500]}...\n")
+                # Destacar todas as ocorrências da palavra-chave
+                # re.escape garante que caracteres especiais não quebrem a regex
+                # (?i) torna a busca insensível a maiúsculas/minúsculas
+                texto_destacado = re.sub(
+                    f"(?i)({re.escape(palavra)})", 
+                    r'**⚡\1⚡**', 
+                    texto
+                )
+                resultados.append(f"### Página {i+1}\n\n{texto_destacado[:1500]}...\n")
 
             if resultados:
                 st.success(f"Encontrado em {len(resultados)} páginas")
