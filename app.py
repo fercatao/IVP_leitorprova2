@@ -37,19 +37,17 @@ if pdf_files and palavra:
             leitor = PyPDF2.PdfReader(pdf_file)
             resultados = []
 
-            for i, pagina in enumerate(leitor.pages):
-                texto = pagina.extract_text()
-                if texto and palavra.lower() in texto.lower():
-                  if texto and palavra.lower() in texto.lower():
-                    # Destacar todas as ocorrências da palavra-chave
-                    # re.escape garante que caracteres especiais não quebrem a regex
-                    # (?i) torna a busca insensível a maiúsculas/minúsculas
-                    texto_destacado = re.sub(
-                        f"(?i)({re.escape(palavra)})", 
-                        r'**⚡\1⚡**', 
-                        texto
-                    )
-                    resultados.append(f"### Página {i+1}\n\n{texto_destacado[:1500]}...\n")
+        for i, pagina in enumerate(leitor.pages):
+              texto = pagina.extract_text()
+            if texto and palavra.lower() in texto.lower():
+                texto = texto.replace("\n", " ").replace("\r", " ")
+                for match in re.finditer(re.escape(palavra), texto, re.IGNORECASE):
+                inicio = max(match.start() - contexto, 0)
+                fim = min(match.end() + contexto, len(texto))
+                trecho = texto[inicio:fim]
+                # destaque a palavra no trecho
+                trecho_destacado = re.sub(f"(?i)({re.escape(palavra)})", r"**⚡\1⚡**", trecho)
+                resultados.append(f"### Página {i+1}\n\n...{trecho_destacado}...\n")
 
             if resultados:
                 st.success(f"Encontrado em {len(resultados)} páginas")
