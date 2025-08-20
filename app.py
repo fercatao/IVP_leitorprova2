@@ -3,14 +3,21 @@ import PyPDF2
 import re
 
 # Imagem do ícone
-st.image("mood.jpeg", width=100)
+st.image("mood.jpeg", width=200)
 
 # Título com fonte Lemon Milk Light
 st.markdown("""
     <link href="https://fonts.googleapis.com/css2?family=Lemon+Milk:wght@300&display=swap" rel="stylesheet">
-    <h1 style='font-family: "Lemon Milk", sans-serif; font-weight: 300;'>
+    <h1 style='font-family: "Lemon Milk", sans-serif; font-weight: 200;'>
         Leitor de provas!
     </h1>
+""", unsafe_allow_html=True)
+
+# Subtítulo com Lemon Milk
+st.markdown("""
+    <h2 style='font-family: "Lemon Milk", sans-serif; font-weight: 150;'>
+        Banco de Dados
+    </h2>
 """, unsafe_allow_html=True)
 
 # Upload de vários PDFs
@@ -38,7 +45,7 @@ if pdf_files and palavra:
                     # (?i) torna a busca insensível a maiúsculas/minúsculas
                     texto_destacado = re.sub(
                         f"(?i)({re.escape(palavra)})", 
-                        r"**\1**", 
+                        r' <span style="color:red">\1</span>', 
                         texto
                     )
                     resultados.append(f"### Página {i+1}\n\n{texto_destacado[:1500]}...\n")
