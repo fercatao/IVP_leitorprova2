@@ -63,4 +63,4 @@ if pdf_files and palavra:
                 st.warning("Nenhuma ocorrência encontrada.")
 
         except Exception as e:
-        st.error(f"Erro ao ler o arquivo {pdf_file.name}: {e}")
+            st.error(f"Erro ao ler o arquivo {pdf_file.name}: {e}")
