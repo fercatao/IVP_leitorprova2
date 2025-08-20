@@ -40,15 +40,14 @@ if pdf_files and palavra:
             for i, pagina in enumerate(leitor.pages):
                 texto = pagina.extract_text()
                 if texto and palavra.lower() in texto.lower():
-                    # Destacar todas as ocorrências da palavra-chave
-                    # re.escape garante que caracteres especiais não quebrem a regex
-                    # (?i) torna a busca insensível a maiúsculas/minúsculas
-                    texto_destacado = re.sub(
-                        f"(?i)({re.escape(palavra)})", 
-                        r'**⚡\1⚡**', 
-                        texto
-                    )
-                    resultados.append(f"### Página {i+1}\n\n{texto_destacado[:1500]}...\n")
+                   # Remove quebras de linha para não quebrar Markdown
+                    texto = texto.replace("\n", " ")
+
+                    # Encontra todas as ocorrências com ±50 caracteres de contexto
+                    padrao = re.compile(f"(?i)(.{0,500})({re.escape(palavra)})(.{0,500})")
+                    for match in padrao.finditer(texto):
+                        trecho = match.group(1) + "**⚡" + match.group(2) + "⚡**" + match.group(3)
+                        resultados.append(f"Página {i+1}: ...{trecho}...")
 
             if resultados:
                 st.success(f"Encontrado em {len(resultados)} páginas")
