@@ -53,7 +53,7 @@ if pdf_files and palavra:
             if resultados:
                 st.success(f"Encontrado em {len(resultados)} páginas")
                 for r in resultados:
-                    st.markdown(r)
+                    st.markdown(r, unsafe_allow_html=true)
             else:
                 st.warning("Nenhuma ocorrência encontrada.")
 
