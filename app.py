@@ -42,9 +42,8 @@ if pdf_files and palavra:
             for i, pagina in enumerate(leitor.pages):
                 texto = pagina.extract_text()
                 if texto and palavra.lower() in texto.lower():
-                    # Limpa quebras de linha e espaços extras
-                    texto = texto.replace("\n", " ").replace("\r", " ")
-                    texto = re.sub(r"\s+", " ", texto)
+                    # Mantém quebras de linha, remove apenas espaços extras
+                    texto = re.sub(r"[ \t]+", " ", texto)
 
                     # Procura todas as ocorrências da palavra
                     for match in re.finditer(re.escape(palavra), texto, re.IGNORECASE):
