@@ -15,7 +15,7 @@ st.markdown("""
 
 # Subtítulo com Lemon Milk
 st.markdown("""
-    <h2 style='font-family: "Lemon Milk", sans-serif; font-weight: 150;'>
+    <h2 style='font-family: "Lemon Milk", sans-serif; font-weight: 100;'>
         Banco de Dados
     </h2>
 """, unsafe_allow_html=True)
@@ -53,7 +53,7 @@ if pdf_files and palavra:
             if resultados:
                 st.success(f"Encontrado em {len(resultados)} páginas")
                 for r in resultados:
-                    st.markdown(r, unsafe_allow_html=true)
+                    st.markdown(r)
             else:
                 st.warning("Nenhuma ocorrência encontrada.")
 
